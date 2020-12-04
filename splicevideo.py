@@ -52,11 +52,15 @@ def splicevideo(videourl : str, start : str ,stop : str,
     
     if not os.path.exists(f"{outputname}.mp4"):
         subprocess.call(f"yes Y | you-get -O {outputname} {videourl}",shell=True)
-
-    start = sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(start.split(':'))))
-    stop = sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(stop.split(':'))))
-
-    ffmpeg_extract_subclip(f"{outputname}.mp4", start, stop, targetname=targetname)
+    
+    try:
+        start = sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(start.split(':'))))
+        stop = sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(stop.split(':'))))
+    except:
+          pass
+    
+    if None not in (start,stop):
+        ffmpeg_extract_subclip(f"{outputname}.mp4", start, stop, targetname=targetname)
 
     #TODO Add ability to Accept multiple Clip entries.
     #TODO Add ability to combine all Spliced Clips into single Video.
