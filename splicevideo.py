@@ -27,8 +27,8 @@ import re
 app = typer.Typer()
 
 @app.command()
-def splicevideo(videourl : str, start : str ,stop : str,
-                outputname : Optional[str] = typer.Argument(None)):
+def splicevideo(videourl : str, start : Optional[str] = typer.Argument(None) ,
+                stop : Optional[str] = typer.Argument(None), outputname : Optional[str] = typer.Argument(None)):
     '''
        This Function first downloads a video, and then Splices out a Section based on timestamp minutes:seconds entered.
        
